@@ -1,5 +1,5 @@
 # FIVERR-IMAGE-CAPTION-INSERTER
-To install the program: git clone https://github.com/Alex-13-13/UKbro.git
+To install the program: git clone https://github.com/salomonsa/FIVERR-IMAGE-CAPTION-INSERTER.git
 
 IMPORTANT STUFF, READ BEFORE USING THE PROGRAM:
 
