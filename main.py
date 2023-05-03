@@ -51,7 +51,7 @@ for timestamp in timestamps:
     timestamp[0] = timestamp[0].replace("\"", '')
     if lines[6]=="Default timestamp duration? yes":
         if len(timestamp)==2:
-            timestamp[1]==int(lines[7])
+            timestamp[1]=int(lines[7])
         elif len(timestamp)==1:
             timestamp.append(int(lines[7]))
     elif lines[6]=="Default timestamp duration? no":
