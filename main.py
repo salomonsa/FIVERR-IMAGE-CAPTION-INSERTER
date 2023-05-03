@@ -4,6 +4,8 @@ import csv
 import numpy as np
 from moviepy.editor import clips_array
 from moviepy.config import change_settings
+from PIL import Image
+
 change_settings(
     {"IMAGEMAGICK_BINARY": r"C:/Program Files/ImageMagick-7.1.1-Q16-HDRI/magick.exe"})
 images = []
@@ -105,6 +107,13 @@ while True:
     except OSError:
         print("File not found, edit config file")
         exit()
+for image in images:
+    img = Image.open("./images/"+image[0])
+
+# Convert the image to RGB format
+    img = img.convert("RGB")
+    img.save("./images/"+image[0])
+
 i = 0
 if timestamps[0][2] != 0:
     voidclips.append(video.subclip(0, timestamps[0][2]))
@@ -663,7 +672,12 @@ while True:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
                 images.append(row)
+        for image in images:
+            img = Image.open("./images/"+image[0])
 
+        # Convert the image to RGB format
+            img = img.convert("RGB")
+            img.save("./images/"+image[0])
         with open(pathCaptions, newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
