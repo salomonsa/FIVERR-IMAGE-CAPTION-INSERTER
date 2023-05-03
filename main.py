@@ -34,7 +34,7 @@ while True:
         break
     except OSError:
         print("File not found, edit config file")
-        exit()
+        exit() 
 video = video.resize((1920, 1080))
 while True:
     try:
