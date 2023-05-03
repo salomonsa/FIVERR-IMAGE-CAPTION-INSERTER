@@ -687,8 +687,17 @@ while True:
         
         for timestamp in timestamps:
             timestamp[0] = timestamp[0].replace("\"", '')
-            timestamp[1] = timestamp[1].replace("\"", '')
-            timestamp[1] = int(timestamp[1])
+            if lines[6]=="Default timestamp duration? yes":
+                if len(timestamp)==2:
+                    timestamp[1]=int(lines[7])
+                elif len(timestamp)==1:
+                    timestamp.append(int(lines[7]))
+            elif lines[6]=="Default timestamp duration? no":
+                timestamp[1] = timestamp[1].replace("\"", '')
+                timestamp[1] = int(timestamp[1])
+            else:
+                print("Invalid input, edit config file")
+                exit()
             h, m, s = timestamp[0].split(':')
             timestamp.append(int(h) * 3600 + int(m) * 60 + int(s))
 
