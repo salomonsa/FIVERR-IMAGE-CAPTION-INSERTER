@@ -4,8 +4,8 @@ import csv
 import numpy as np
 from moviepy.editor import clips_array
 from moviepy.config import change_settings
-change_settings(
-    {"IMAGEMAGICK_BINARY": r"C:/Program Files/ImageMagick-7.1.1-Q16-HDRI/magick.exe"})
+
+change_settings({"IMAGEMAGICK_BINARY": r"/usr/local/Cellar/imagemagick/7.1.1-8_1"/bin/convert})
 images = []
 captions = []
 timestamps = []
