@@ -4,8 +4,8 @@ import csv
 import numpy as np
 from moviepy.editor import clips_array
 from moviepy.config import change_settings
-
-change_settings({"IMAGEMAGICK_BINARY": r"/usr/local/Cellar/imagemagick/7.1.1-8_1"/bin/convert})
+change_settings(
+    {"IMAGEMAGICK_BINARY": r"C:/Program Files/ImageMagick-7.1.1-Q16-HDRI/magick.exe"})
 images = []
 captions = []
 timestamps = []
@@ -48,8 +48,14 @@ while True:
         exit()
 for timestamp in timestamps:
     timestamp[0] = timestamp[0].replace("\"", '')
-    timestamp[1] = timestamp[1].replace("\"", '')
-    timestamp[1] = int(timestamp[1])
+    if lines[6]=="Default timestamp duration? yes":
+        timestamp[1]=4
+    elif lines[6]=="Default timestamp duration? no":
+        timestamp[1] = timestamp[1].replace("\"", '')
+        timestamp[1] = int(timestamp[1])
+    else:
+        print("Invalid input, edit config file")
+        exit()
     h, m, s = timestamp[0].split(':')
     timestamp.append(int(h) * 3600 + int(m) * 60 + int(s))
 
