@@ -1,0 +1,6 @@
+video.mov
+timestamps.csv
+captions.csv
+generate file names automatically: yes
+images.csv
+Cross
