@@ -98,7 +98,7 @@ while True:
         break
     except OSError:
         print("File not found, edit config file")
-    
+        exit()
 i = 0
 if timestamps[0][2] != 0:
     voidclips.append(video.subclip(0, timestamps[0][2]))
