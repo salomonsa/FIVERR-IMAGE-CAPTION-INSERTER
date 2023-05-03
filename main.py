@@ -18,27 +18,34 @@ positionsimages = [(0.1, 0.9), (0.5, 0.9), (0.9, 0.9),
 positionsimagesstandard = [(0.5, 0.5), (0.1, 0.9),
                            (0.9, 0.9), (0.1, 0.1), (0.9, 0.1)]
 
+
+with open('config.txt') as f:
+    lines = f.readlines()
+    for index,line in enumerate(lines):
+        lines[index]=line.replace("\n", "")
+    print(lines)
+
 while True:
     try:
-        x = "./video/"+input("\nEnter name of the video file you wanna edit: ")
+        x = "./video/"+lines[0]
         videopath = x
         video = me.VideoFileClip(videopath)
         break
     except OSError:
-        print("File not found")
+        print("File not found, edit config file")
+        exit()
 video = video.resize((1920, 1080))
 while True:
     try:
-        pathTimest = "./spreadsheets/" + \
-            input("\nEnter the name of the timestamp spreadsheet file you wanna use: ")
+        pathTimest = "./spreadsheets/" + lines[1]
         with open(pathTimest, newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
             for row in spamreader:
                 timestamps.append(row)
         break
     except OSError:
-        print("File not found")
-
+        print("File not found, edit config file")
+        exit()
 for timestamp in timestamps:
     timestamp[0] = timestamp[0].replace("\"", '')
     timestamp[1] = timestamp[1].replace("\"", '')
@@ -46,29 +53,52 @@ for timestamp in timestamps:
     h, m, s = timestamp[0].split(':')
     timestamp.append(int(h) * 3600 + int(m) * 60 + int(s))
 
-while True:
-    try:
-        pathImages = "./spreadsheets/" + \
-            input("\nEnter the name of the images spreadsheet file you wanna use: ")
-        with open(pathImages, newline='') as csvfile:
-            spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-            for row in spamreader:
-                images.append(row)
-        break
-    except OSError:
-        print("File not found")
 
 while True:
     try:
-        pathCaptions = "./spreadsheets/" + \
-            input("\nEnter the name of the captions spreadsheet file you wanna use: ")
+        pathCaptions = "./spreadsheets/" + lines[2]
         with open(pathCaptions, newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
                 captions.append(row)
+        if lines[3]=="generate file names automatically: yes":
+            with open('./spreadsheets/'+lines[4], 'w+') as f:
+        # create the csv writer
+            # write a row to the csv file
+                for i in range(0,len(captions)):
+                    filename=str(i)+".jpg"
+                    f.write(filename)
+                    f.write("\n")
+            while True:
+                try:
+                    pathImages = "./spreadsheets/" + lines[4]
+                    with open(pathImages, newline='') as csvfile:
+                        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                        for row in spamreader:
+                            images.append(row)
+                    break
+                except OSError:
+                    print("File not found, edit config file")
+                    exit()
+        elif lines[3]=="generate file names automatically: no":
+            while True:
+                try:
+                    pathImages = "./spreadsheets/" + lines[4]
+                    with open(pathImages, newline='') as csvfile:
+                        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                        for row in spamreader:
+                            images.append(row)
+                    break
+                except OSError:
+                    print("File not found, edit config file")
+                    exit()
+        else:
+            print("Invalid input, edit config file")
+            exit()
         break
     except OSError:
-        print("File not found")
+        print("File not found, edit config file")
+    
 i = 0
 if timestamps[0][2] != 0:
     voidclips.append(video.subclip(0, timestamps[0][2]))
@@ -93,10 +123,10 @@ while True:
     for timestamp in timestamps:
         standardornot = ""
         while not ((standardornot == "Cross") or (standardornot == "3x3")):
-            standardornot = input(
-                "\nType 'Cross' for Cross positioning or '3x3' for 3x3 positioning in time-stamp "+timestamp[0]+" :")
+            standardornot = lines[5]
             if not ((standardornot == "Cross") or (standardornot == "3x3")):
-                print("Invalid input")
+                print("Invalid input, edit config file")
+                exit()
 
         if standardornot == "Cross":
             if images[i] == []:
