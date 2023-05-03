@@ -5,3 +5,4 @@ generate file names automatically: yes
 images.csv
 Cross
 Default timestamp duration? yes
+4
