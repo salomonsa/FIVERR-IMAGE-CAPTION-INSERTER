@@ -111,11 +111,12 @@ while True:
         print("File not found, edit config file")
         exit()
 for image in images:
-    img = Image.open("./images/"+image[0])
+    if image!=[]:
+        img = Image.open("./images/"+image[0])
 
-# Convert the image to RGB format
-    img = img.convert("RGB")
-    img.save("./images/"+image[0])
+    # Convert the image to RGB format
+        img = img.convert("RGB")
+        img.save("./images/"+image[0])
 
 i = 0
 if timestamps[0][2] != 0:
@@ -676,11 +677,12 @@ while True:
             for row in spamreader:
                 images.append(row)
         for image in images:
-            img = Image.open("./images/"+image[0])
+            if image!=[]:
+                img = Image.open("./images/"+image[0])
 
-        # Convert the image to RGB format
-            img = img.convert("RGB")
-            img.save("./images/"+image[0])
+            # Convert the image to RGB format
+                img = img.convert("RGB")
+                img.save("./images/"+image[0])
         with open(pathCaptions, newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
