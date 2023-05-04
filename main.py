@@ -49,6 +49,8 @@ while True:
         exit()
 for timestamp in timestamps:
     timestamp[0] = timestamp[0].replace("\"", '')
+    timestamp[0] = timestamp[0].replace("Untitled - ", '')
+    timestamp[0]= timestamp[0].split('.', 1)[0]
     if lines[6]=="Default timestamp duration? yes":
         if len(timestamp)==2:
             timestamp[1]=int(lines[7])
@@ -62,7 +64,6 @@ for timestamp in timestamps:
         exit()
     h, m, s = timestamp[0].split(':')
     timestamp.append(int(h) * 3600 + int(m) * 60 + int(s))
-
 
 while True:
     try:
@@ -687,6 +688,8 @@ while True:
         
         for timestamp in timestamps:
             timestamp[0] = timestamp[0].replace("\"", '')
+            timestamp[0] = timestamp[0].replace("Untitled - ", '')
+            timestamp[0]= timestamp[0].split('.', 1)[0]
             if lines[6]=="Default timestamp duration? yes":
                 if len(timestamp)==2:
                     timestamp[1]=int(lines[7])
