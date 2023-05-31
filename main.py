@@ -80,6 +80,9 @@ while True:
                     filename=str(i)+".jpg"
                     f.write(filename)
                     f.write("\n")
+                for i in timestamps:
+                    for j in range(0,9):
+                        f.write("\n")
             while True:
                 try:
                     pathImages = "./spreadsheets/" + lines[4]
